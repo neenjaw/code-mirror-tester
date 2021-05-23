@@ -1,24 +1,20 @@
-import * as React from 'react'
-import logo from './logo.svg'
+import styled from 'styled-components'
 import './App.css'
+import { CodeEditor } from './components/code-editor'
+
+const HeaderText = styled.h1`
+  margin: 0;
+`
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <HeaderText>Codemirror</HeaderText>
       </header>
+      <main>
+        <CodeEditor />
+      </main>
     </div>
   )
 }
