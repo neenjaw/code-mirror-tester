@@ -7,7 +7,7 @@ const EditorWrapper = styled.div``
 
 export function CodeEditor(): JSX.Element {
   const parentRef = useRef<HTMLDivElement>(null)
-  const view = useCodeMirror(parentRef, exampleCode)
+  /*const view =*/ useCodeMirror(parentRef, exampleCode)
 
   return <EditorWrapper ref={parentRef}></EditorWrapper>
 }
