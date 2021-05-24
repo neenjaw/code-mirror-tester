@@ -16,16 +16,16 @@ export function useCodeMirror(
           doc: initialDocument,
           extensions: [basicSetup, javascript()],
         }),
-        parent: document.body,
+        parent: ref.current,
       })
       setView(view)
 
       return () => {
-        view.destroy()
         setView(null)
+        view.destroy()
       }
     }
-  }, [initialDocument, ref])
+  }, [initialDocument, ref, setView])
 
   return view
 }

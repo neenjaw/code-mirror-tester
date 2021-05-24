@@ -1319,7 +1319,7 @@
     "@codemirror/view" "^0.18.0"
     lezer-javascript "^0.13.0"
 
-"@codemirror/language@^0.18.0":
+"@codemirror/language@^0.18.0", "@codemirror/language@^0.18.1":
   version "0.18.1"
   resolved "https://registry.yarnpkg.com/@codemirror/language/-/language-0.18.1.tgz#23682324228606c4ae5b6a9f7cd0a4b9fdff83dd"
   integrity sha512-j/TWV8sNmzU79kk/hPLb9NqSPoH59850kQSpgY11LxOEBlKVRKgaWabgNtUCSeVCAnfisGekupk3aq2ftILqug==

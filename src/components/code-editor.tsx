@@ -1,13 +1,14 @@
-import { useRef } from 'react'
+import { RefObject } from 'react'
 import styled from 'styled-components'
-import { useCodeMirror } from './use-code-mirror'
-import { code as exampleCode } from '../data/code'
 
-const EditorWrapper = styled.div``
+interface ICodeEditor {
+  passRef: RefObject<HTMLDivElement>
+}
 
-export function CodeEditor(): JSX.Element {
-  const parentRef = useRef<HTMLDivElement>(null)
-  /*const view =*/ useCodeMirror(parentRef, exampleCode)
+const EditorWrapper = styled.div`
+  background-color: #fff;
+`
 
-  return <EditorWrapper ref={parentRef}></EditorWrapper>
+export function CodeEditor({ passRef }: ICodeEditor): JSX.Element {
+  return <EditorWrapper id="editor" ref={passRef}></EditorWrapper>
 }
