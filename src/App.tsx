@@ -8,7 +8,7 @@ import { useCodeMirror } from './hooks/use-code-mirror'
 
 import { code as exampleCode } from './data/code'
 import { syntaxTree } from '@codemirror/language'
-import { logTree } from './util/print-lezer-tree'
+import { printTree } from './util/print-lezer-tree'
 
 const HeaderText = styled.h1`
   margin: 0;
@@ -18,14 +18,29 @@ function App() {
   const codeEditorRef = useRef<HTMLDivElement>(null)
   const parseTreeRef = useRef<HTMLDivElement>(null)
   const codeView = useCodeMirror(codeEditorRef, exampleCode)
-  const parseTreeView = useCodeMirror(parseTreeRef, '')
+  const parseTreeView = useCodeMirror(parseTreeRef, 'loading...')
 
   useEffect(() => {
-    if (codeView && parseTreeView) {
-      const codeViewState = codeView.state
-      const codeViewTree = syntaxTree(codeViewState)
-      logTree(codeViewTree, '')
-    }
+    setTimeout(() => {
+      if (codeView && parseTreeView) {
+        const codeViewState = codeView.state
+        const codeViewTree = syntaxTree(codeViewState)
+        const stringSyntaxTree = printTree(
+          codeViewTree,
+          codeViewState.doc.toString(),
+          {
+            colorizeOutput: false,
+          }
+        )
+        parseTreeView.dispatch({
+          changes: {
+            from: 0,
+            to: parseTreeView.state.doc.length,
+            insert: stringSyntaxTree,
+          },
+        })
+      }
+    }, 300)
   }, [codeView, parseTreeView])
 
   return (

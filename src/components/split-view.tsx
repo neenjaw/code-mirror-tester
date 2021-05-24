@@ -16,8 +16,11 @@ const SplitViewWrapper = styled.div`
 `
 
 const SplitViewSide = styled.div`
-  flex-basis: 100%;
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-basis: calc(50% - 8px);
+  flex-grow: 0;
+  flex-shrink: 0;
 
   &:nth-child(1) {
     padding-right: 8px;

@@ -10,11 +10,13 @@ import {
 enum Color {
   Red = 31,
   Green = 32,
-  Yellow = 33,
+  Yellow = 32,
 }
 
-function colorize(value: any, color: number): string {
-  return '\u001b[' + color + 'm' + String(value) + '\u001b[39m'
+function colorize(value: any, color: number, colorize: boolean = true): string {
+  return colorize
+    ? '\u001b[' + color + 'm' + String(value) + '\u001b[39m'
+    : String(value)
 }
 
 function focusedNode(cursor: TreeCursor): {
@@ -34,6 +36,7 @@ export function printTree(
     to?: number
     start?: number
     includeParents?: boolean
+    colorizeOutput?: boolean
   } = {}
 ): string {
   if (!(cursor instanceof TreeCursor))
@@ -44,6 +47,7 @@ export function printTree(
     to = Infinity,
     start = 0,
     includeParents = false,
+    colorizeOutput,
   } = options
   let output = ''
   const prefixes: string[] = []
@@ -69,7 +73,7 @@ export function printTree(
           }
         }
         output += node.type.isError
-          ? colorize(node.type.name, Color.Red)
+          ? colorize(node.type.name, Color.Red, colorizeOutput)
           : node.type.name
       }
       const isLeaf = !cursor.firstChild()
@@ -79,17 +83,18 @@ export function printTree(
           ' ' +
           (hasRange
             ? '[' +
-              colorize(start + node.from, Color.Yellow) +
+              colorize(start + node.from, Color.Yellow, colorizeOutput) +
               '..' +
-              colorize(start + node.to, Color.Yellow) +
+              colorize(start + node.to, Color.Yellow, colorizeOutput) +
               ']'
-            : colorize(start + node.from, Color.Yellow))
+            : colorize(start + node.from, Color.Yellow, colorizeOutput))
         if (hasRange && isLeaf) {
           output +=
             ': ' +
             colorize(
               JSON.stringify(input.read(node.from, node.to)),
-              Color.Green
+              Color.Green,
+              colorizeOutput
             )
         }
       }
